@@ -1,7 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import Hero from "./components/app/Hero"
-import Navbar from './components/app/Navbar'
 import Body from './layout/Body'
 import Home from './layout/Home'
 import NewPlan from './components/plan/NewPlan'
