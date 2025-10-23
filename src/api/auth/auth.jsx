@@ -18,6 +18,23 @@ const loginUser = async (email, password) => {
     }
 }
 
+const registerUser = async (name, email, password) => {
+    try {
+        const res = await axios.post(BASE_URL + "/auth/register", {
+            name,
+            email, password
+        })
+
+        const user = res.data.user
+        return user;
+
+    }
+    catch (err) {
+        throw new Error(err.response.data.message || err.message)
+    }
+}
+
 export default {
-    loginUser
+    loginUser,
+    registerUser
 }

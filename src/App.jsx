@@ -5,6 +5,7 @@ import Home from './layout/Home'
 import NewPlan from './components/plan/NewPlan'
 import Login from './components/auth/Login'
 import Signup from './components/auth/Signup'
+import UpdateInfo from './components/profile/UpdateInfo'
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
           <Route path='/' element={<Body />}>
             <Route path="/home" element={<Home />} />
             <Route path="/plan/new" element={<NewPlan />} />
+            <Route path="/profile/update" element={<UpdateInfo />} />
 
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<Signup />} />

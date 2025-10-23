@@ -72,7 +72,7 @@ export default function Login() {
                         <button onClick={handleLoginClick} className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
                             {!isLoading ? "Login" : <Spinner />}
                         </button>
-                        {error && <p className="-mt-2 mb-4 text-center  text-red-500">{error}</p> }
+                        {error && <p className="-mt-2 mb-4 text-center  text-red-500">{error}</p>}
                     </form>
                     <div className="mt-5">
                         <button className="w-full flex items-center justify-center gap-x-3 py-2.5 mt-5 border rounded-lg text-sm font-medium hover:bg-gray-50 duration-150 active:bg-gray-100">
