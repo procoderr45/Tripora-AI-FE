@@ -2,35 +2,39 @@ import React from 'react'
 
 const Hero = () => {
     return (
-        <div className="relative overflow-hidden">
-            <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-10">
-                <div className="max-w-2xl text-center mx-auto">
-                    <h1 className="block text-3xl font-bold text-gray-800 sm:text-4xl md:text-5xl">Designed for you to get more <span className="text-blue-600">simple</span></h1>
-                    <p className="mt-3 text-lg text-gray-800">Build your business here. Take it anywhere.</p>
-                </div>
+        <div className="relative pt-48 pb-12 z-10 xl:pt-60 sm:pb-16 lg:pb-32 xl:pb-48 2xl:pb-56 ">
 
-                <div className="mt-10 relative max-w-5xl mx-auto">
-                    <div className="w-full object-cover h-96 sm:h-120 bg-[url('https://images.unsplash.com/photo-1606868306217-dbf5046868d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1020&q=80')] bg-no-repeat bg-center bg-cover rounded-xl"></div>
+            <div className="absolute inset-0 ">
+                <img className="object-cover w-full h-full" src="https://img.freepik.com/premium-photo/family-enjoys-scenic-road-trip-taking-view-from-top-their-car_14117-754328.jpg" alt="" />
+            </div>
 
-                    <div className="absolute inset-0 size-full">
-                        <div className="flex flex-col justify-center items-center size-full">
-                            <a className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-full border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none" href="#">
-                                <svg className="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3" /></svg>
-                                Play the overview
+            <div className="relative">
+                <div className="px-6 mx-auto sm:px-8 lg:px-12 max-w-7xl">
+                    <div className="w-full lg:w-2/3 xl:w-1/2">
+                        <h1 className="font-sans text-base font-normal tracking-tight text-black text-opacity-70">Master the basics of baking</h1>
+                        <p className="mt-6 tracking-tighter text-black">
+                            <span className="font-sans font-normal text-7xl">The road to the</span><br />
+                            <span className="font-serif italic font-normal text-8xl">perfect loaf</span>
+                        </p>
+                        <p className="mt-12 font-sans text-base font-normal leading-7 text-black text-opacity-70">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eu penatibus pellentesque dolor consequat ligula egestas massa gravida. Porttitor venenatis enim praesent.</p>
+                        <p className="mt-8 font-sans text-xl font-normal text-black">Starting at $9.99/month</p>
+
+                        <div className="flex items-center mt-5 space-x-3 sm:space-x-4">
+                            <a href="#" title="" className=" inline-flex items-center justify-center px-5 py-2 font-sans text-base font-semibold transition-all duration-200 border-2 border-transparent rounded-full sm:leading-8 bg-white sm:text-lg text-black hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-secondary " role="button">
+                                Get started
+                            </a>
+
+                            <a href="#" title="" className=" inline-flex items-center justify-center px-5 py-2 font-sans text-base font-semibold transition-all duration-200 bg-transparent border-2 rounded-full sm:leading-8 text-black border-primary hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary hover:text-black sm:text-lg focus:ring-offset-secondary" role="button" >
+                                <svg className="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fillRule="evenodd" clipRule="evenodd" d="M8.0416 4.9192C7.37507 4.51928 6.5271 4.99939 6.5271 5.77669L6.5271 18.2232C6.5271 19.0005 7.37507 19.4806 8.0416 19.0807L18.4137 12.8574C19.061 12.469 19.061 11.5308 18.4137 11.1424L8.0416 4.9192Z" /></svg>
+                                Watch trailer
                             </a>
                         </div>
-                    </div>
-
-                    <div className="absolute bottom-12 -start-20 -z-1 size-48 bg-linear-to-b from-orange-500 to-white p-px rounded-lg">
-                        <div className="bg-white size-48 rounded-lg"></div>
-                    </div>
-
-                    <div className="absolute -top-12 -end-20 -z-1 size-48 bg-linear-to-t from-blue-600 to-cyan-400 p-px rounded-full">
-                        <div className="bg-white size-48 rounded-full"></div>
                     </div>
                 </div>
             </div>
         </div>
+
     )
 }
 
