@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import profile from '../../api/profile/profile'
+import Spinner from '../common/Spinner'
 
 const UpdateInfo = () => {
 
@@ -15,26 +16,61 @@ const UpdateInfo = () => {
         email: ""
 
     })
+
+    const [toastMessage, setToastMessage] = useState("")
+
+    const [error, setError] = useState("")
+
     const [isLoading, setIsLoading] = useState(false)
 
     const getUser = async () => {
-        setIsLoading(true)
-        const user = await profile.getLoggedInUser()
+        try {
+            setIsLoading(true)
+            const user = await profile.getLoggedInUser()
 
-        console.log(user)
-
-        setUser(user)
+            setUser(user)
+        }
+        catch (err) {
+            setError(err.message)
+        }
+        finally {
+            setIsLoading(false)
+        }
     }
+
+    const handleUpdateProfile = async () => {
+        try {
+            const res = await profile.updateProfile(user)
+
+            setUser(res.user)
+            setToastMessage(res.message)
+        }
+        catch (err) {
+            setError(err.message || "Something went wrong")
+        }
+    }
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setToastMessage("")
+        }, 4000)
+
+        return () => {
+            clearTimeout(timer)
+        }
+
+    }, [toastMessage])
 
     useEffect(() => {
         getUser()
     }, [])
 
     return (
-        <section className="bg-white dark:bg-gray-900 mt-20">
+        <section className="bg-white dark:bg-gray-900 mt-16">
             <div className="max-w-2xl px-4 py-8 mx-auto lg:py-16">
+                {toastMessage && <p className='absolute right-10 top-20 px-4 py-2 bg-white text-black'>✅ {toastMessage}</p>}
                 <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">Update product</h2>
-                <form onSubmit={(e) => e.preventDefault()}  action="#">
+                <form onSubmit={(e) => e.preventDefault()} action="#">
                     <div className="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5 w-full">
                         <div className="sm:col-span-2">
                             <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
@@ -76,10 +112,12 @@ const UpdateInfo = () => {
                         </div>
                     </div>
                     <div className="flex items-center space-x-4">
-                        <button type="submit" className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 mx-auto mt-5 bg-black hover:bg-gray-600">
-                            Update profile
+                        <button type="button" onClick={handleUpdateProfile} className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 mx-auto mt-5 bg-black hover:bg-gray-600">
+                            {!isLoading ? "Update profile" : <Spinner />}
                         </button>
+
                     </div>
+                    {error && <p className='text-red-500 mt-2 text-center'>{error}</p>}
                 </form>
             </div>
         </section>

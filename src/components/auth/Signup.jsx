@@ -18,10 +18,8 @@ export default function Signup() {
         setError("")
         try {
             const user = await auth.registerUser(name, email, password)
-
-            console.log("Registered", user)
-
-            navigate("/home")
+            
+            navigate("/profile/update")
 
         }
         catch (err) {
