@@ -85,9 +85,9 @@ export default function Navbar() {
                         <div className="hidden sm:ml-6 sm:block z-99999">
                             <div className="flex space-x-4">
                                 {navigation.map((item) => (
-                                    <a key={item.name} href={item.href} className='rounded-md px-3 py-2 text-sm font-medium'>
+                                    <Link key={item.name} href={item.href} className='rounded-md px-3 py-2 text-sm font-medium'>
                                         {item.name}
-                                    </a>
+                                    </Link>
                                 ))}
                             </div>
                         </div>
