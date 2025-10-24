@@ -24,13 +24,24 @@ const getItinerary = async (planId) => {
         );
 
         // TODO:
-        return res.data.itinerary;
+        return res.data.itinenary;
     } catch (err) {
         throw new Error(err.response.data.message || err.message);
     }
 };
 
+const getPlanData = async (planId) => {
+    if (!planId) return null;
+
+    const res = await axios.get(BASE_URL + "/plan/" + planId, {
+        withCredentials: true,
+    });
+
+    return res.data.plan;
+};
+
 export default {
     savePlan,
     getItinerary,
+    getPlanData,
 };
