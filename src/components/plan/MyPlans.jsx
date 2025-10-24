@@ -11,8 +11,8 @@ const MyPlans = () => {
     console.log(plans)
 
     return (
-        <div className='w-full h-screen mt-10'>
-            <h1>My created plans</h1>
+        <div className='w-full h-screen mt-20'>
+            <h1 className='text-center font-bold text-2xl'>My created plans</h1>
 
             {
                 isLoading ? <div className='w-full h-full flex justify-center items-center'>

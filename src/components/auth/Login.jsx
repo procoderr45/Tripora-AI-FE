@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom"
 import loginUser from "../../api/auth/auth"
 import Spinner from "../common/Spinner"
 import auth from "../../api/auth/auth"
+import { useDispatch } from "react-redux"
+import { addUser } from "../../store/slices/userSlice"
 
 export default function Login() {
 
