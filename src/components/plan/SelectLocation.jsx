@@ -64,7 +64,6 @@ const SelectLocation = () => {
 
     return (
         <div className="relative w-full ">
-            {/* Selected Tags */}
             <div
                 onClick={() => setOpen(!open)}
                 className="flex flex-wrap items-center gap-2 border border-gray-300 rounded-lg px-2 py-4 cursor-pointer bg-white focus-within:ring-2 focus-within:ring-blue-500"
@@ -105,7 +104,6 @@ const SelectLocation = () => {
                 </svg>
             </div>
 
-            {/* Dropdown */}
             {open && (
                 <div className="absolute z-50 mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-72 overflow-y-auto p-1">
                     {users.map((user) => (
@@ -113,8 +111,8 @@ const SelectLocation = () => {
                             key={user.id}
                             onClick={() => !user.disabled && toggleSelect(user)}
                             className={`flex items-center p-2 rounded-lg cursor-pointer hover:bg-gray-100 ${user.disabled
-                                    ? "opacity-50 cursor-not-allowed"
-                                    : "text-gray-800"
+                                ? "opacity-50 cursor-not-allowed"
+                                : "text-gray-800"
                                 }`}
                         >
                             <img

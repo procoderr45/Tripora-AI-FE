@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 const navigation = [
     { name: 'Home', href: '/home', current: true },
     { name: 'Make Plan', href: '/plan/new', current: false },
-    { name: 'Past plans', href: '#', current: false },
+    { name: 'Past plans', href: '/profile/plans', current: false },
     { name: 'Calendar', href: '#', current: false },
 ]
 
@@ -41,7 +41,6 @@ export default function Navbar() {
             <div className="mx-auto   max-w-7xl z-1000000 px-2 sm:px-6 lg:px-8 text-black">
                 <div className="relative flex h-16 items-center justify-between">
                     <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                        {/* Mobile menu button*/}
                         <DisclosureButton className="inline-flex items-center justify-center rounded-md p-2 text-black hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                             <Bars3Icon className="block h-6 w-6 ui-open:hidden" aria-hidden="true" />
                             <XMarkIcon className="hidden h-6 w-6 ui-open:block" aria-hidden="true" />
@@ -73,7 +72,6 @@ export default function Navbar() {
                             <BellIcon aria-hidden="true" className="size-6" />
                         </button>
 
-                        {/* Profile dropdown */}
                         <Menu as="div" className="relative ml-3 z-999999">
                             <MenuButton className="relative flex rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
                                 <span className="absolute -inset-1.5" />

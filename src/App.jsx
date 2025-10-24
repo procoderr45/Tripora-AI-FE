@@ -8,6 +8,8 @@ import Signup from './components/auth/Signup'
 import UpdateInfo from './components/profile/UpdateInfo'
 import { Provider } from 'react-redux'
 import appStore from './store/appStore'
+import PlanDetails from './components/plan/PlanDetails'
+import MyPlans from './components/profile/MyPlans'
 
 function App() {
 
@@ -21,9 +23,11 @@ function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/plan/new" element={<NewPlan />} />
               <Route path="/profile/update" element={<UpdateInfo />} />
+              <Route path="/profile/plans" element={<MyPlans />} />
 
               <Route path='/login' element={<Login />} />
               <Route path='/signup' element={<Signup />} />
+              <Route path="/plan/:id" element={<PlanDetails />} />
 
             </Route>
 

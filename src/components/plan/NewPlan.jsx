@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import SelectLocation from '../plan/SelectLocation'
 import Modal from '../common/Modal'
+import Timeline from './Timeline'
 
 const NewPlan = () => {
 
     const [open, setOpen] = useState(false)
+
 
     const [planData, setPlanData] = useState({
         description: "",
@@ -12,13 +14,13 @@ const NewPlan = () => {
         budget: 0,
         withWhom: "",
         date: Date.now(),
-        numberOfDays: 5,
+        numberOfDays: 1,
         preferredPlaces: []
     })
 
     return (
-        <>
-            <Modal open={open} setOpen={setOpen} planData={planData} />
+        <div >
+            <Modal open={open} setPlanData={setPlanData} setOpen={setOpen} planData={planData} />
             <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
                 <div className="max-w-xl mx-auto">
                     <div className="text-center">
@@ -128,7 +130,7 @@ const NewPlan = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

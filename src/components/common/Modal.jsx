@@ -1,8 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import updateStepperMessage from '../../utils/itinerary/updateStepperMessage'
 import planApi from '../../api/plan/planApi'
 import { MapPinIcon } from '@heroicons/react/24/solid'
@@ -18,11 +17,12 @@ import { Link } from 'react-router-dom'
     
 */}
 
-export default function Modal({ open, setOpen, planData }) {
+export default function Modal({ setPlanData, open, setOpen, planData }) {
     const [isCompleted, setIsCompleted] = useState(false)
     const [isStarted, setIsStarted] = useState(false)
+
+    console.log()
     const [error, setError] = useState("")
-    const [itinerary, setItinerary] = useState({})
 
     const [currentTask, setCurrentTask] = useState(0)
     const [messages, setMessages] = useState([
@@ -47,6 +47,8 @@ export default function Modal({ open, setOpen, planData }) {
             setMessages(newMessages)
 
             const createdData = await planApi.savePlan(planData)
+            setPlanData(createdData)
+
             newMessages = updateStepperMessage(newMessages, 0, "Saved plan successfully", "completed")
 
             setCurrentTask(prev => prev + 1)
@@ -59,9 +61,6 @@ export default function Modal({ open, setOpen, planData }) {
             setCurrentTask(prev => prev + 1)
 
             setMessages(newMessages)
-
-            setItinerary(createdItinerary)
-
         }
         catch (err) {
             console.log(err)
@@ -148,21 +147,20 @@ export default function Modal({ open, setOpen, planData }) {
                                             </button>
                                         </div>
                                         :
-                                        !error ?
-                                            <div className=" px-4 py-3 sm:flex justify-center items-center sm:flex-row-reverse sm:px-6">
-                                                <Link
-                                                    to={"/plan/" + planData?._id}
-                                                    type="button"
-                                                    data-autofocus
-                                                    onClick={() => setOpen(false)}
-                                                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-white/20 sm:mt-0 sm:w-auto"
-                                                >
-                                                    Check Daywise itinerary
-                                                </Link>
-                                            </div> :
+                                        <div className=" px-4 py-3 sm:flex justify-center items-center sm:flex-row-reverse sm:px-6">
+                                            <Link
+                                                to={"/plan/" + planData?._id}
+                                                type="button"
+                                                data-autofocus
+                                                onClick={() => setOpen(false)}
+                                                className="mt-3 inline-flex w-full justify-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-white/20 sm:mt-0 sm:w-auto"
+                                            >
+                                                Check Daywise itinerary
+                                            </Link>
+                                        </div>
 
-                                            <p className='mt-4 text-red-500 text-center'>{error}</p>
                             }
+                            <p className='mt-4 text-red-500 text-center'>{error}</p>
                         </DialogPanel>
                     </div>
                 </div >
