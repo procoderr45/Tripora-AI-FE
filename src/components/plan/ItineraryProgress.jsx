@@ -5,6 +5,10 @@ const ItineraryProgress = ({ setIsStarted, messages, currentTask, handleItinerar
 
     useEffect(() => {
         handleItineraryStart()
+    }, [])
+
+    useEffect(() => {
+
     }, [messages, currentTask])
 
     return (

@@ -7,6 +7,8 @@ import updateStepperMessage from '../../utils/itinerary/updateStepperMessage'
 import planApi from '../../api/plan/planApi'
 import { MapPinIcon } from '@heroicons/react/24/solid'
 import ItineraryProgress from '../plan/ItineraryProgress'
+import Spinner from './Spinner'
+import { Link } from 'react-router-dom'
 
 {/* 
     Task numbers
@@ -20,6 +22,7 @@ export default function Modal({ open, setOpen, planData }) {
     const [isCompleted, setIsCompleted] = useState(false)
     const [isStarted, setIsStarted] = useState(false)
     const [error, setError] = useState("")
+    const [itinerary, setItinerary] = useState({})
 
     const [currentTask, setCurrentTask] = useState(0)
     const [messages, setMessages] = useState([
@@ -28,39 +31,48 @@ export default function Modal({ open, setOpen, planData }) {
             status: "incomplete",
         },
         {
-            message: "AI is thinking...",
-            status: "incomplete"
-        },
-        {
-            message: "Structuring day wise itinerary",
+            message: "AI will think on your plan",
             status: "incomplete"
         }
     ])
 
     async function handleItineraryStart() {
         try {
-            let newMessages = updateStepperMessage(messages, 0, messages[0].message, "ongoing")
+
+            if (isCompleted) {
+                return;
+            }
+
+            let newMessages = updateStepperMessage(messages, 0, "Creating and saving plan", "ongoing")
             setMessages(newMessages)
 
             const createdData = await planApi.savePlan(planData)
-            newMessages = updateStepperMessage(messages, 0, "Saved plan successfully", "completed")
-            newMessages = updateStepperMessage(newMessages, 1, messages[1].message, "ongoing")
+            newMessages = updateStepperMessage(newMessages, 0, "Saved plan successfully", "completed")
 
+            setCurrentTask(prev => prev + 1)
+            newMessages = updateStepperMessage(newMessages, 1, "AI is thinking on your plan", "ongoing")
             setMessages(newMessages)
+
 
             const createdItinerary = await planApi.getItinerary(createdData._id)
-            newMessages = updateStepperMessage(messages, 1, "AI generated day wise itinerary plan", "completed")
+            newMessages = updateStepperMessage(newMessages, 1, "AI generated day wise itinerary plan", "completed")
+            setCurrentTask(prev => prev + 1)
 
             setMessages(newMessages)
 
-            setIsCompleted(true)
+            setItinerary(createdItinerary)
 
         }
         catch (err) {
             console.log(err)
             setError(err.message)
+        }
+        finally {
+            console.log(currentTask)
+            updateStepperMessage(messages, currentTask, messages[currentTask].message, "failed")
+            // setCurrentTask(-1)
+            setIsCompleted(true)
             setIsStarted(false)
-            setIsCompleted(false)
         }
     }
 
@@ -75,7 +87,7 @@ export default function Modal({ open, setOpen, planData }) {
                 />
 
                 <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-                    <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                    <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
                         <DialogPanel
                             transition
                             className="relative transform overflow-hidden rounded-lg bg-gray-800 text-left shadow-xl outline -outline-offset-1 outline-white/10 transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95"
@@ -105,23 +117,52 @@ export default function Modal({ open, setOpen, planData }) {
                                     </div>
                                 </div>
                             </div>
-                            <div className=" px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                                <button
-                                    type="button"
-                                    onClick={() => setIsStarted(true)}
-                                    className="inline-flex w-full justify-center rounded-md bg-gray-700 px-3 py-2 text-sm font-semibold text-white hover:bg-redgray-700 sm:ml-3 sm:w-auto"
-                                >
-                                    Generate
-                                </button>
-                                <button
-                                    type="button"
-                                    data-autofocus
-                                    onClick={() => setOpen(false)}
-                                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-white/20 sm:mt-0 sm:w-auto"
-                                >
-                                    Cancel
-                                </button>
-                            </div>
+                            {
+                                !isStarted && !isCompleted ?
+                                    <div className=" px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                                        <button
+                                            type="button"
+                                            onClick={() => setIsStarted(true)}
+                                            className="inline-flex w-full justify-center rounded-md bg-gray-700 px-3 py-2 text-sm font-semibold text-white hover:bg-redgray-700 sm:ml-3 sm:w-auto"
+                                        >
+                                            Generate
+                                        </button>
+                                        <button
+                                            type="button"
+                                            data-autofocus
+                                            onClick={() => setOpen(false)}
+                                            className="mt-3 inline-flex w-full justify-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-white/20 sm:mt-0 sm:w-auto"
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
+                                    :
+                                    !isCompleted ?
+                                        <div>
+                                            <button
+                                                type="button"
+                                                onClick={() => setIsStarted(true)}
+                                                className="inline-flex w-full justify-center rounded-md bg-gray-700 px-3 py-2 text-sm font-semibold text-white hover:bg-redgray-700 sm:ml-3 sm:w-auto"
+                                            >
+                                                <Spinner />
+                                            </button>
+                                        </div>
+                                        :
+                                        !error ?
+                                            <div className=" px-4 py-3 sm:flex justify-center items-center sm:flex-row-reverse sm:px-6">
+                                                <Link
+                                                    to={"/plan/" + planData?._id}
+                                                    type="button"
+                                                    data-autofocus
+                                                    onClick={() => setOpen(false)}
+                                                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-white/20 sm:mt-0 sm:w-auto"
+                                                >
+                                                    Check Daywise itinerary
+                                                </Link>
+                                            </div> :
+
+                                            <p className='mt-4 text-red-500 text-center'>{error}</p>
+                            }
                         </DialogPanel>
                     </div>
                 </div >

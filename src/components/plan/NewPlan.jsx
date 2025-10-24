@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import SelectLocation from '../plan/SelectLocation'
-import Stepper from '../plan/Stepper'
 import Modal from '../common/Modal'
 
 const NewPlan = () => {
@@ -24,8 +23,7 @@ const NewPlan = () => {
                 <div className="max-w-xl mx-auto">
                     <div className="text-center">
                         <h1 className="text-3xl font-bold text-gray-800 sm:text-4xl">
-                            Ready to hire us?
-                        </h1>
+                            Plan Your Perfect Trip — Let AI Build Your Itinerary                        </h1>
                         <p className="mt-1 text-gray-600">
                             Tell us your story and we’ll be in touch.
                         </p>

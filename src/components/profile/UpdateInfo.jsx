@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import profile from '../../api/profile/profile'
 import Spinner from '../common/Spinner'
+import { useSelector } from 'react-redux'
 
 const UpdateInfo = () => {
 
+    const loggedInUser = useSelector((store) => store.user.user)
     const [user, setUser] = useState({
         name: "",
         bio: "",
@@ -23,22 +25,9 @@ const UpdateInfo = () => {
 
     const [isLoading, setIsLoading] = useState(false)
 
-    const getUser = async () => {
-        try {
-            setIsLoading(true)
-            const user = await profile.getLoggedInUser()
-
-            setUser(user)
-        }
-        catch (err) {
-            setError(err.message)
-        }
-        finally {
-            setIsLoading(false)
-        }
-    }
 
     const handleUpdateProfile = async () => {
+        setIsLoading(true)
         try {
             const res = await profile.updateProfile(user)
 
@@ -48,7 +37,14 @@ const UpdateInfo = () => {
         catch (err) {
             setError(err.message || "Something went wrong")
         }
+        finally {
+            setIsLoading(false)
+        }
     }
+
+    useEffect(() => {
+        setUser(loggedInUser)
+    }, [loggedInUser])
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -61,14 +57,16 @@ const UpdateInfo = () => {
 
     }, [toastMessage])
 
-    useEffect(() => {
-        getUser()
-    }, [])
+    if (!user) {
+        return <div className='w-full h-screen flex justify-center items-center'>
+            <Spinner />
+        </div>
+    }
 
     return (
         <section className="bg-white dark:bg-gray-900 mt-16">
             <div className="max-w-2xl px-4 py-8 mx-auto lg:py-16">
-                {toastMessage && <p className='absolute right-10 top-20 px-4 py-2 bg-white text-black'>✅ {toastMessage}</p>}
+                {toastMessage && <p className='absolute right-10 top-20 py-2 bg-white pr-2 text-black'><span className='pl-1 pr-2'>✅</span> {toastMessage}</p>}
                 <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">Update product</h2>
                 <form onSubmit={(e) => e.preventDefault()} action="#">
                     <div className="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5 w-full">

@@ -1,5 +1,10 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { useEffect } from 'react'
+import profile from '../../api/profile/profile'
+import { useDispatch } from 'react-redux'
+import { addUser, changeLoginLoadingStatus } from '../../store/slices/userSlice'
+import { Link } from 'react-router-dom'
 
 const navigation = [
     { name: 'Home', href: '/home', current: true },
@@ -9,6 +14,27 @@ const navigation = [
 ]
 
 export default function Navbar() {
+
+    const dispatch = useDispatch()
+
+    const getUser = async () => {
+        dispatch(changeLoginLoadingStatus(true))
+        try {
+
+            const user = await profile.getLoggedInUser()
+
+            dispatch(addUser(user))
+        }
+        catch (err) {
+            dispatch(changeLoginLoadingStatus(false))
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        getUser()
+    }, [])
+
     return (
         <Disclosure as="nav" className="fixed top-0 left-0 w-full z-9999 backdrop-blur-xs bg-white/10 shadow-md" >
 
@@ -57,9 +83,9 @@ export default function Navbar() {
 
                             <MenuItems className="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white/80 backdrop-blur-2xl py-1 shadow-lg ring-1 ring-black/10 focus:outline-none " >
                                 <MenuItem>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <Link to="/profile/update" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                         Your Profile
-                                    </a>
+                                    </Link>
                                 </MenuItem>
                                 <MenuItem>
                                     <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">

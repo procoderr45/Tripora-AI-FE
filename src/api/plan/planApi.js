@@ -9,7 +9,7 @@ const savePlan = async (data) => {
 
         return res.data.plan;
     } catch (err) {
-        console.log(err);
+        throw new Error(err.response.data.message || err.message);
     }
 };
 
@@ -26,7 +26,7 @@ const getItinerary = async (planId) => {
         // TODO:
         return res.data.itinerary;
     } catch (err) {
-        console.log(err);
+        throw new Error(err.response.data.message || err.message);
     }
 };
 
