@@ -2,14 +2,19 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Body from './layout/Body'
 import Home from './layout/Home'
-import NewPlan from './components/plan/NewPlan'
-import Login from './components/auth/Login'
-import Signup from './components/auth/Signup'
-import UpdateInfo from './components/profile/UpdateInfo'
+import { lazy, Suspense } from 'react'
+
+const NewPlan = lazy(() => import("./components/plan/NewPlan"))
+const Login = lazy(() => import("./components/auth/Login"))
+const Signup = lazy(() => import("./components/auth/Signup"))
+const UpdateInfo = lazy(() => import("./components/profile/UpdateInfo"))
+const PlanDetails = lazy(() => import("./components/plan/PlanDetails"))
+const MyPlans = lazy(() => import("./components/plan/MyPlans"))
+
+
 import { Provider } from 'react-redux'
 import appStore from './store/appStore'
-import PlanDetails from './components/plan/PlanDetails'
-import MyPlans from './components/plan/MyPlans'
+import Spinner from './components/common/Spinner'
 
 function App() {
 
@@ -17,22 +22,25 @@ function App() {
     <>
       <Provider store={appStore}>
         <BrowserRouter>
-          <Routes>
+          <Suspense fallback={<div className='w-full h-[90vh] flex justify-center items-center'><Spinner /></div>}>
 
-            <Route path='/' element={<Body />}>
-              <Route path="" element={<Navigate to={"/home"} replace />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/plan/new" element={<NewPlan />} />
-              <Route path="/profile/update" element={<UpdateInfo />} />
-              <Route path="/profile/plans" element={<MyPlans />} />
+            <Routes>
 
-              <Route path='/login' element={<Login />} />
-              <Route path='/signup' element={<Signup />} />
-              <Route path="/plan/:id" element={<PlanDetails />} />
+              <Route path='/' element={<Body />}>
+                <Route path="" element={<Navigate to={"/home"} replace />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/plan/new" element={<NewPlan />} />
+                <Route path="/profile/update" element={<UpdateInfo />} />
+                <Route path="/profile/plans" element={<MyPlans />} />
 
-            </Route>
+                <Route path='/login' element={<Login />} />
+                <Route path='/signup' element={<Signup />} />
+                <Route path="/plan/:id" element={<PlanDetails />} />
 
-          </Routes>
+              </Route>
+
+            </Routes>
+          </Suspense>
         </BrowserRouter>
       </Provider>
     </>

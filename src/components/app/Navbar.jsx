@@ -63,7 +63,7 @@ export default function Navbar() {
     }, [toastMessage])
 
     return (
-        <Disclosure as="nav" className="fixed top-0 left-0 w-full z-9999 backdrop-blur-xs bg-black/40 shadow-md" >
+        <Disclosure as="nav" className="fixed top-0 left-0 w-full z-9999 backdrop-blur-xs bg-black/90 shadow-md" >
             {toastMessage && <p className='absolute bg-white  top-20 right-10 border-2 px-4 py-2'> ✅ {toastMessage}</p>}
             <div className="mx-auto   max-w-7xl z-1000000 px-2 sm:px-6 lg:px-8 text-white">
                 <div className="relative flex h-16 items-center justify-between">
@@ -85,7 +85,7 @@ export default function Navbar() {
                         <div className="hidden sm:ml-6 sm:block z-99999">
                             <div className="flex space-x-4">
                                 {navigation.map((item) => (
-                                    <Link key={item.name} href={item.href} className='rounded-md px-3 py-2 text-sm font-medium'>
+                                    <Link key={item.name} to={item.href} className='rounded-md px-3 py-2 text-sm font-medium'>
                                         {item.name}
                                     </Link>
                                 ))}

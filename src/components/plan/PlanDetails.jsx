@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { lazy, useEffect, useState } from "react";
 import {
     MapPinIcon,
     CalendarDaysIcon,
     UserGroupIcon,
     CurrencyRupeeIcon,
-    PencilIcon,
     TagIcon,
     ClockIcon,
 } from "@heroicons/react/24/outline";
+
 import { useParams } from "react-router-dom";
-import axios from "axios";
-import { BASE_URL } from "../../utils/constants";
 import planApi from "../../api/plan/planApi";
-import Timeline from "./Timeline";
-import Spinner from "../common/Spinner";
+const Timeline = lazy(() => import("./Timeline"))
+const Spinner = lazy(() => import("../common/Spinner"))
 
 const PlanDetails = () => {
     const planId = useParams().id

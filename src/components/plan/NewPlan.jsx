@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
-import SelectLocation from '../plan/SelectLocation'
-import Modal from '../common/Modal'
-import Timeline from './Timeline'
+import React, { lazy, useState } from 'react'
+const SelectLocation = lazy(() => import("../plan/SelectLocation"))
+const Modal = lazy(() => import("../common/Modal"))
 
 const NewPlan = () => {
 
@@ -66,11 +65,12 @@ const NewPlan = () => {
                                     </div>
                                 </div>
 
-                                <div>
+                                {/* TODO: add feature of preferred location selecting  */}
+                                {/* <div>
                                     <label htmlFor="plan-fromLocation" className=" mb-2 text-sm text-gray-700 font-medium">Preffered locations</label>
 
                                     <SelectLocation />
-                                </div>
+                                </div> */}
 
 
 
@@ -94,12 +94,12 @@ const NewPlan = () => {
                                     </div>
                                 </div>
 
-                                <div>
+                                {/* <div>
                                     <label htmlFor="hs-about-hire-us-2" className="block mb-2 text-sm text-gray-700 font-medium">Takeway from this trip</label>
 
                                     <textarea id="hs-about-hire-us-2"
                                         required name="hs-about-hire-us-2" rows="4" className="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 border-2 disabled:pointer-events-none"></textarea>
-                                </div>
+                                </div> */}
                             </div>
 
                             {/* <div className="mt-3 flex">
@@ -115,17 +115,12 @@ const NewPlan = () => {
                                 <button
                                     type="button"
                                     onClick={() => setOpen(true)}
-                                    className="rounded-md bg-white/10  px-2.5 py-1.5 text-sm font-semibold text-black inset-ring inset-ring-white/5 hover:bg-white/20"
+                                    className="rounded-md bg-black text-white  px-2.5 py-1.5 text-sm font-semibold inset-ring inset-ring-white/5 hover:bg-black/80 cursor-pointer"
                                 >
                                     Start generating itinerary
                                 </button>
                             </div>
 
-                            <div className="mt-3 text-center">
-                                <p className="text-sm text-gray-500">
-                                    We'll get back to you in 1-2 business days.
-                                </p>
-                            </div>
                         </form>
                     </div>
                 </div>
