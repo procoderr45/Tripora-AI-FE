@@ -9,7 +9,7 @@ import UpdateInfo from './components/profile/UpdateInfo'
 import { Provider } from 'react-redux'
 import appStore from './store/appStore'
 import PlanDetails from './components/plan/PlanDetails'
-import MyPlans from './components/profile/MyPlans'
+import MyPlans from './components/plan/MyPlans'
 
 function App() {
 

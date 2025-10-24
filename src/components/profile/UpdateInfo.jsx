@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 const UpdateInfo = () => {
 
     const loggedInUser = useSelector((store) => store.user.user)
+
     const [user, setUser] = useState({
         name: "",
         bio: "",
@@ -67,7 +68,8 @@ const UpdateInfo = () => {
         <section className="bg-white dark:bg-gray-900 mt-16">
             <div className="max-w-2xl px-4 py-8 mx-auto lg:py-16">
                 {toastMessage && <p className='absolute right-10 top-20 py-2 bg-white pr-2 text-black'><span className='pl-1 pr-2'>✅</span> {toastMessage}</p>}
-                <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">Update product</h2>
+                <h1 className='text-center text-white font-bold text-2xl mb-8'>Help us to know your better</h1>
+                <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">Update your data</h2>
                 <form onSubmit={(e) => e.preventDefault()} action="#">
                     <div className="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5 w-full">
                         <div className="sm:col-span-2">
