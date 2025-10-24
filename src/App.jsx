@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Body from './layout/Body'
 import Home from './layout/Home'
@@ -20,6 +20,7 @@ function App() {
           <Routes>
 
             <Route path='/' element={<Body />}>
+              <Route path="" element={<Navigate to={"/home"} replace />} />
               <Route path="/home" element={<Home />} />
               <Route path="/plan/new" element={<NewPlan />} />
               <Route path="/profile/update" element={<UpdateInfo />} />
