@@ -1,8 +1,8 @@
 {
   "redirects": [
     {
-      "source": "/:path*", 
-      "destination": "/:path*", 
+      "source": "/",
+      "destination": "/home",
       "permanent": true
     }
   ]
