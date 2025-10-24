@@ -6,26 +6,30 @@ import NewPlan from './components/plan/NewPlan'
 import Login from './components/auth/Login'
 import Signup from './components/auth/Signup'
 import UpdateInfo from './components/profile/UpdateInfo'
+import { Provider } from 'react-redux'
+import appStore from './store/appStore'
 
 function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <Routes>
+      <Provider store={appStore}>
+        <BrowserRouter>
+          <Routes>
 
-          <Route path='/' element={<Body />}>
-            <Route path="/home" element={<Home />} />
-            <Route path="/plan/new" element={<NewPlan />} />
-            <Route path="/profile/update" element={<UpdateInfo />} />
+            <Route path='/' element={<Body />}>
+              <Route path="/home" element={<Home />} />
+              <Route path="/plan/new" element={<NewPlan />} />
+              <Route path="/profile/update" element={<UpdateInfo />} />
 
-            <Route path='/login' element={<Login />} />
-            <Route path='/signup' element={<Signup />} />
-            
-          </Route>
+              <Route path='/login' element={<Login />} />
+              <Route path='/signup' element={<Signup />} />
 
-        </Routes>
-      </BrowserRouter>
+            </Route>
+
+          </Routes>
+        </BrowserRouter>
+      </Provider>
     </>
   )
 }
