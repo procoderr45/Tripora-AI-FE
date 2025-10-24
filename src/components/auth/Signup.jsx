@@ -2,6 +2,8 @@ import React, { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import auth from "../../api/auth/auth"
 import Spinner from "../common/Spinner"
+import { useDispatch } from "react-redux"
+import { addUser } from "../../store/slices/userSlice"
 
 export default function Signup() {
 
@@ -12,13 +14,15 @@ export default function Signup() {
     const [error, setError] = useState("")
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const handleRegisterClick = async () => {
         setIsLoading(true)
         setError("")
         try {
             const user = await auth.registerUser(name, email, password)
-            
+
+            dispatch(addUser(user))
             navigate("/profile/update")
 
         }

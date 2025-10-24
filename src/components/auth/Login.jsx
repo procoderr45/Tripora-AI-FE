@@ -12,6 +12,7 @@ export default function Login() {
     const [error, setError] = useState("")
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const handleLoginClick = async () => {
         try {
@@ -19,7 +20,8 @@ export default function Login() {
             setIsLoading(true)
 
             const user = await auth.loginUser(email, password)
-            console.log(user)
+            dispatch(addUser(user))
+
 
             navigate("/home")
 
